@@ -18,7 +18,7 @@ const ChatFooter = ({ sendMessage, receiveMessage }) => {
     const textInput = useRef(null);
 
     const keyPressHandler = async (event) => {
-        if(event.key === 'Enter' && event.target.value) {
+        if(event.key === 'Enter' && event.target.value && event.target.value.trim().length) {
             const data = event.target.value.trim();
             sendMessage(data);
             if(greetingMsg.includes(data.toLocaleLowerCase())) {
@@ -31,11 +31,12 @@ const ChatFooter = ({ sendMessage, receiveMessage }) => {
                 disaableButton(true);
                 let meaning = '';
                 const findMeaning = await findApi(data).then(res => res);
+                console.log("find meaning "+findMeaning);
                 if(Array.isArray(findMeaning)) {
                     try {
                         meaning = findMeaning[0].meanings[0].definitions[0].definition;
                     } catch {
-                        meaning = 'Sorry I couldnt get it for ya';
+                        meaning = 'Sorry I couldnt get it for '+data;
                     }
                 } else {
                     meaning = findMeaning.message;

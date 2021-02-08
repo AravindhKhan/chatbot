@@ -6,7 +6,20 @@ const initialState = {
         time: new Date(),
         id: `receive-${new Date().getTime()}`,
         msgType: 'receive'
-    }]
+    },
+    {
+        msg: 'Hi',
+        time: new Date(),
+        id: `send-${new Date()}`,
+        msgType: 'send'
+    },
+    {
+        msg: 'How can I help you',
+        time: new Date(),
+        id: `receive-${new Date().getSeconds()}`,
+        msgType: 'receive'
+    }
+]
 };
 
 const messageReducer = (state = initialState, action)=>{
@@ -36,10 +49,6 @@ const messageReducer = (state = initialState, action)=>{
             oldMessage.push(message);
 
             return { ...state, message: [...oldMessage]}
-        }
-
-        case "EDIT_MESSAGE": {
-            console.log("in edit message ",action.msg);
         }
                 
         default:
